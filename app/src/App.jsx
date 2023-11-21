@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import HomeLayout from "./components/HomeLayout";
 import Login from "./Pages/Login";
