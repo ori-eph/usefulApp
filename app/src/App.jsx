@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import HomeLayout from "./components/HomeLayout";
 import Login from "./Pages/Login";
+// import Register from "./Pages/Register";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="login" replace />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
         <Route path="home" element={<HomeLayout />}>
           <Route index element={<Home />} />
           {/* <Route path="todos" element={<Todos />} /> */}
