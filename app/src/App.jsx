@@ -8,6 +8,7 @@ import Info from "./Pages/Info";
 import Posts from "./Pages/Posts";
 import Register from "./Pages/Register";
 import ToDoList from "./Pages/Todo/ToDoList";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -19,14 +20,16 @@ function App() {
         <Route path="home" element={<HomeLayout />}>
           <Route index element={<Home />} />
           <Route path="todos" element={<ToDoList />} />
-          {/* <Route path="posts" element={<Posts />}>
+          <Route path="posts" element={<Posts />}>
             <Route path=":id" element={<singlePost />} />
           </Route>
           {/* <Route path="albums" element={<Albums />}>
             <Route path=":id" element={<singleAlbum />} />
           </Route> */}
           <Route path="info" element={<Info />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

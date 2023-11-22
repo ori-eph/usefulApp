@@ -1,4 +1,4 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
 // import { LayoutProvider } from "../context/LayoutProvider";
 
@@ -23,7 +23,9 @@ export default function HomeLayout() {
         </button>
       </header>
       <nav>
-        <Link to="posts">Posts</Link>
+        <NavLink to="posts">Posts</NavLink>
+        <NavLink to="todos">Todos</NavLink>
+        <NavLink to="albums">Albums</NavLink>
       </nav>
       {/* <LayoutProvider> */}
       <Outlet context={[currentUser, setCurrentUser]} />

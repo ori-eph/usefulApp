@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
+import SearchBar from "../../components/SearchBar";
 
 function ToDoList() {
   const [list, setList] = useState([]);
@@ -11,7 +12,6 @@ function ToDoList() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     async function getUserList() {
-      console.log(`http://localhost:3000/users/${user.id}/todos`);
       const response = await fetch(
         `http://localhost:3000/users/${user.id}/todos`
       );
@@ -25,10 +25,10 @@ function ToDoList() {
     async function makeList() {
       try {
         const listTemp = await getUserList();
-        console.log(listTemp);
+
         setList(listTemp);
       } catch (err) {
-        console.log(err);
+        setErr(err);
       }
     }
 
@@ -85,13 +85,13 @@ function ToDoList() {
   }
 
   async function addItem(e) {
-    //not complete:
     e.preventDefault();
     const newItemObj = {
       title: newItem,
       userId: user.id,
       completed: false,
     };
+    setNewItem("");
     try {
       const result = await fetch("http://localhost:3000/todos", {
         method: "POST",
@@ -130,6 +130,14 @@ function ToDoList() {
         <option value="Z-A">Z-A</option>
         <option value="importance">importance</option>
       </select>
+      <SearchBar
+        searchBy={["title", "id"]}
+        category={"todos"}
+        setErr={setErr}
+        setList={setList}
+        list={list}
+      />
+      {err && <p>{err.message}</p>}
       {list.length && (
         <ul>
           {list.map((item, index) => {
@@ -142,8 +150,6 @@ function ToDoList() {
                     removeItem={() => {
                       handleRemoveItem(index, item.id);
                     }}
-                    sortBy={sortOrderRef.current.value}
-                    sortList={handleSortChange}
                     checkItem={() => handleCheckItem(item.id)}
                   />
                 }
@@ -152,7 +158,6 @@ function ToDoList() {
           })}
         </ul>
       )}
-      {err && <p>{err.message}</p>}
     </>
   );
 }

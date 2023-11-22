@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-function TodoItem({ item, removeItem, checkItem, setErr, sortBy, sortList }) {
+function TodoItem({ item, removeItem, checkItem, setErr }) {
   async function handleCheck() {
     checkItem();
     try {
@@ -23,6 +21,7 @@ function TodoItem({ item, removeItem, checkItem, setErr, sortBy, sortList }) {
     <>
       <div>
         <h2>{item.title}</h2>
+        <h4>{item.id}</h4>
         <input
           type="checkbox"
           checked={item.completed}
