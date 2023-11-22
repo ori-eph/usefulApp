@@ -3,23 +3,20 @@ import { useEffect, useRef, useState } from "react";
 function SearchBar(props) {
   const [search, setSearch] = useState("");
   const searchParm = useRef("auto");
-  const ogList = useRef(props.list);
 
-  useEffect(() => {
-    if (!ogList.current.length) {
-      ogList.current = props.list;
-    }
-  }, [props.list]);
+  if (props.autoSearch) {
+    getSearchResults();
+  }
 
   function getSearchResults() {
     props.setErr(null);
 
     if (!search) {
-      props.setList(ogList.current);
+      props.setResList(null);
     } else {
       let result = [];
       if (searchParm.current.value === "auto") {
-        result = ogList.current.filter((item) => {
+        result = props.list.filter((item) => {
           for (const value of Object.values(item)) {
             if (value.toString().toLowerCase().includes(search.toLowerCase())) {
               return true;
@@ -28,13 +25,7 @@ function SearchBar(props) {
           return false;
         });
       } else {
-        result = ogList.current.filter((item) => {
-          console.log(
-            item[searchParm.current.value]
-              .toString()
-              .toLowerCase()
-              .includes(search.toLowerCase())
-          );
+        result = props.list.filter((item) => {
           return item[searchParm.current.value]
             .toString()
             .toLowerCase()
@@ -42,9 +33,9 @@ function SearchBar(props) {
         });
       }
       if (result.length > 0) {
-        props.setList(result);
+        props.setResList(result.map((result) => result.id));
       } else {
-        props.setList([]);
+        props.setResList([]);
         props.setErr(Error("no matching results."));
       }
     }
@@ -52,16 +43,6 @@ function SearchBar(props) {
 
   return (
     <div>
-      <select ref={searchParm}>
-        <option value="auto">auto</option>
-        {props.searchBy?.map((searchParm) => {
-          return (
-            <option value={searchParm} key={searchParm}>
-              {searchParm}
-            </option>
-          );
-        })}
-      </select>
       <input
         type="search"
         placeholder="search..."
@@ -72,6 +53,16 @@ function SearchBar(props) {
           setSearch(e.target.value);
         }}
       />
+      <select ref={searchParm}>
+        <option value="auto">auto</option>
+        {props.searchBy?.map((searchParm) => {
+          return (
+            <option value={searchParm} key={searchParm}>
+              {searchParm}
+            </option>
+          );
+        })}
+      </select>
       <button onClick={getSearchResults}>search</button>
     </div>
   );

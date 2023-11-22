@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./signInSignUp.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -97,7 +98,7 @@ function Register() {
   };
 
   return (
-    <form>
+    <form id="register">
       {page === 1 && (
         <>
           <label htmlFor="username">username:</label>

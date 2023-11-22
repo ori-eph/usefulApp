@@ -1,5 +1,6 @@
 import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
+import "./HomeLayout.css";
 // import { LayoutProvider } from "../context/LayoutProvider";
 
 export default function HomeLayout() {
@@ -17,19 +18,52 @@ export default function HomeLayout() {
   return (
     <>
       <header>
-        <Link to="info"> Info </Link>
+        <Link id="homeLogo" to="/home">
+          📋usefulApp
+        </Link>
+        <Link id="info" to="info">
+          your Info
+        </Link>
         <button onClick={handleLogout} id="logout">
           logout
         </button>
       </header>
-      <nav>
-        <NavLink to="posts">Posts</NavLink>
-        <NavLink to="todos">Todos</NavLink>
-        <NavLink to="albums">Albums</NavLink>
-      </nav>
-      {/* <LayoutProvider> */}
-      <Outlet context={[currentUser, setCurrentUser]} />
-      {/* </LayoutProvider> */}
+      <div id="container">
+        <nav>
+          <NavLink
+            end
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            to="/home"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            to="posts"
+          >
+            Posts
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            to="todos"
+          >
+            Todos
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "inactive")}
+            to="albums"
+          >
+            Albums
+          </NavLink>
+        </nav>
+        {/* <LayoutProvider> */}
+        <div id="homeBody">
+          {/* <div id="contentContainer"> */}
+          <Outlet context={[currentUser, setCurrentUser]} />
+          {/* </div> */}
+        </div>
+        {/* </LayoutProvider> */}
+      </div>
     </>
   );
 }

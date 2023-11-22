@@ -1,0 +1,15 @@
+#login,
+#register {
+  background-color: white;
+  min-width: 300px;
+  text-align: center;
+  position: fixed;
+  top: 10vh;
+  right: 50%;
+}
+
+#login > *,
+#register > * {
+  display: block;
+  margin: 3% auto;
+}

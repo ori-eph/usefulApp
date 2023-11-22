@@ -1,34 +1,44 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-// import { currentUserContext } from "../components/HomeLayout";
+import "./Info.css";
 
 function Info() {
   const [currentUser, setCurrentUser] = useOutletContext();
 
-  function handleChangeInfo() {}
-
-  const renderUserDetail = (data, parentKey = "") => {
-    return Object.keys(data).map((key) => {
-      const item = data[key];
-      const newKey = parentKey ? `${parentKey}.${key}` : key;
-      if (typeof item === "object" && item !== null && !Array.isArray(item)) {
-        return renderUserDetail(item, newKey);
-      } else {
-        return (
-          <p key={newKey}>
-            <strong>{newKey}:</strong>
-            <span>{item}</span>
-            <button onClick={handleChangeInfo}>Edit</button>
+  const renderUserDetail = (user) => {
+    return (
+      <div>
+        <p>
+          <strong>Name:</strong> {user.name}
+        </p>
+        <p>
+          <strong>Username:</strong> {user.username}
+        </p>
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        {user.phone && (
+          <p>
+            <strong>Phone:</strong> {user.phone}
           </p>
-        );
-      }
-    });
+        )}
+        {user.address && (
+          <p>
+            <strong>Address: </strong>
+            {user.address?.city}
+          </p>
+        )}
+        <p>
+          <strong>Website:</strong> {user.website}
+        </p>
+      </div>
+    );
   };
 
   return (
-    <div>
-      <h1>User Details</h1>
-      {renderUserDetail(currentUser)}
+    <div id="userInfo">
+      <h1>your info</h1>
+      {currentUser && renderUserDetail(currentUser)}
     </div>
   );
 }

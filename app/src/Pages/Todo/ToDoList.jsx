@@ -5,6 +5,7 @@ import SearchBar from "../../components/SearchBar";
 function ToDoList() {
   const [list, setList] = useState([]);
   const [err, setErr] = useState(null);
+  const [searchRes, setSearchRes] = useState(null);
   const [newItem, setNewItem] = useState("");
   const sortOrderRef = useRef("date");
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -107,6 +108,31 @@ function ToDoList() {
     }
   }
 
+  function getList() {
+    let filteredList = searchRes
+      ? list.filter((item) => searchRes.includes(item.id))
+      : list;
+    const listJsx = filteredList.map((item, index) => {
+      return (
+        <li key={item.id}>
+          {
+            <TodoItem
+              err={err}
+              item={item}
+              removeItem={() => {
+                handleRemoveItem(index, item.id);
+              }}
+              checkItem={() => handleCheckItem(item.id)}
+            />
+          }
+        </li>
+      );
+    });
+    return listJsx;
+  }
+
+  const presentedList = getList();
+
   return (
     <>
       <form onSubmit={addItem}>
@@ -134,30 +160,11 @@ function ToDoList() {
         searchBy={["title", "id"]}
         category={"todos"}
         setErr={setErr}
-        setList={setList}
+        setResList={setSearchRes}
         list={list}
       />
       {err && <p>{err.message}</p>}
-      {list.length && (
-        <ul>
-          {list.map((item, index) => {
-            return (
-              <li key={item.id}>
-                {
-                  <TodoItem
-                    err={err}
-                    item={item}
-                    removeItem={() => {
-                      handleRemoveItem(index, item.id);
-                    }}
-                    checkItem={() => handleCheckItem(item.id)}
-                  />
-                }
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {list.length && <ul>{presentedList}</ul>}
     </>
   );
 }
