@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { handleServerRequest } from "../utils";
 
 function Login() {
   const [err, setErr] = useState(null);
@@ -7,15 +9,7 @@ function Login() {
     username: "",
     password: "",
   });
-
-  const handleServerRequest = async (url, options) => {
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      throw Error("A loading error has accrued, please try again later.");
-    }
-    const data = await response.json();
-    return data;
-  };
+  const navigate = useNavigate();
 
   // Function to validate start info
   async function handleLogin(e) {
@@ -31,6 +25,8 @@ function Login() {
       } else {
         setFormStatus("sent");
         //log the user in
+        localStorage.setItem("currentUser", JSON.stringify(foundUser[0]));
+        navigate("/home");
       }
     } catch (err) {
       setFormStatus("error");

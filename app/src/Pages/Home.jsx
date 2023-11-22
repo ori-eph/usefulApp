@@ -1,5 +1,10 @@
+import { useOutletContext } from "react-router-dom";
+// import { currentUserContext } from "../components/HomeLayout";
+
 function Home() {
-  return <h1>home</h1>;
+  const [currentUser, setCurrentUser] = useOutletContext();
+  // console.log(currentUser);
+  return <h1>Welcome, {currentUser.name} </h1>;
 }
 
 export default Home;
