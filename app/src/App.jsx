@@ -5,7 +5,8 @@ import Home from "./Pages/Home";
 import HomeLayout from "./components/HomeLayout";
 import Login from "./Pages/Login";
 import Info from "./Pages/Info";
-import Posts from "./Pages/Posts";
+import Posts from "./Pages/Posts/Posts";
+import SinglePost from "./Pages/Posts/SinglePost";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Route path="home" element={<HomeLayout />}>
           <Route index element={<Home />} />
           {/* <Route path="todos" element={<Todos />} /> */}
-          <Route path="posts" element={<Posts />}>
-            <Route path=":id" element={<singlePost />} />
+          <Route path="posts">
+            <Route index element={<Posts />} />
+            <Route path=":postId" element={<SinglePost />} />
           </Route>
           {/* <Route path="albums" element={<Albums />}>
             <Route path=":id" element={<singleAlbum />} />
