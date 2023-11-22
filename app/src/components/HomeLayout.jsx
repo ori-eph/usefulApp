@@ -1,14 +1,33 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import { LayoutProvider } from "../context/LayoutProvider";
 
-function HomeLayout() {
+export default function HomeLayout() {
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("currentUser"))
+  );
+
+  function handleLogout() {
+    setCurrentUser("");
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  }
+
   return (
     <>
       <header>
-        <h1>:D</h1>
+        <Link to="info"> Info </Link>
+        <button onClick={handleLogout} id="logout">
+          logout
+        </button>
       </header>
-      <Outlet />
+      <nav>
+        <Link to="posts">Posts</Link>
+      </nav>
+      {/* <LayoutProvider> */}
+      <Outlet context={[currentUser, setCurrentUser]} />
+      {/* </LayoutProvider> */}
     </>
   );
 }
-
-export default HomeLayout;

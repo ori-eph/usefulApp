@@ -4,6 +4,8 @@ import { Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import HomeLayout from "./components/HomeLayout";
 import Login from "./Pages/Login";
+import Info from "./Pages/Info";
+import Posts from "./Pages/Posts";
 
 function App() {
   return (
@@ -15,13 +17,13 @@ function App() {
         <Route path="home" element={<HomeLayout />}>
           <Route index element={<Home />} />
           {/* <Route path="todos" element={<Todos />} /> */}
-          {/* <Route path="posts" element={<Posts />}>
+          <Route path="posts" element={<Posts />}>
             <Route path=":id" element={<singlePost />} />
-          </Route> */}
+          </Route>
           {/* <Route path="albums" element={<Albums />}>
             <Route path=":id" element={<singleAlbum />} />
           </Route> */}
-          {/* <Route path="info" element={<Info />} /> */}
+          <Route path="info" element={<Info />} />
         </Route>
       </Routes>
     </>
