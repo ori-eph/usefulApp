@@ -1,100 +1,12 @@
 import { useState } from "react";
 
 function Register() {
-  // const [page, setPage] = useState(1);
-  // const [formStatus, setFormStatus] = useState("typing");
-  // const [err, setErr] = useState(null);
-  // const [formValues, setFormValues] = useState({
-  //   username: "",
-  //   password: "",
-  //   fullName: "",
-  //   email: "",
-  //   address: {
-  //     city: "",
-  //   },
-  // });
-
-  // async function validateStartInfo() {
-  //   setErr(null);
-  //   setFormStatus("loading");
-  //   try {
-  //     if (!formValues.username || !formValues.password) {
-  //       throw Error("u must fill all the fields.");
-  //     }
-  //     const checkExistReq = await fetch(
-  //       `http://localhost:3000/users/?username=${formValues.username}`
-  //     );
-  //     if (!checkExistReq.ok) {
-  //       throw Error("A loading error has accrued, please try again later.");
-  //     }
-  //     const foundUsers = await checkExistReq.json();
-  //     if (foundUsers.length) {
-  //       throw Error("username taken.");
-  //     } else {
-  //       setPage(2);
-  //       setFormStatus("typing");
-  //     }
-  //   } catch (err) {
-  //     setFormStatus("error");
-  //     setErr(err);
-  //   }
-  // }
-
-  // function validateAdditionInfo() {
-  //   for (const key in formValues) {
-  //     if (!formValues[key]) {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // }
-
-  // async function signUpUser(e) {
-  //   setFormStatus("loading");
-  //   setErr(null);
-  //   e.preventDefault();
-  //   try {
-  //     if (!validateAdditionInfo()) {
-  //       throw Error("u must fill all the fields.");
-  //     }
-  //     const checkExistReq = await fetch(`http://localhost:3000/users`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formValues),
-  //     });
-  //     if (!checkExistReq.ok) {
-  //       throw Error(
-  //         "A loading error has accrued, please wait for a bit and then try again."
-  //       );
-  //     }
-  //     const foundUsers = await checkExistReq.json();
-  //     if (foundUsers.length) {
-  //       throw Error("username taken.");
-  //     } else {
-  //       setFormStatus("sent");
-  //     }
-  //   } catch (err) {
-  //     setFormStatus("error");
-  //     setErr(err);
-  //   }
-  // }
-
-  // function handleInputChange(e) {
-  //   const { name, value } = e.target;
-  //   setFormValues((prevFormValues) => ({
-  //     ...prevFormValues,
-  //     [name]: value,
-  //   }));
-  // }
-
   const [page, setPage] = useState(1);
   const [formStatus, setFormStatus] = useState("typing");
   const [err, setErr] = useState(null);
   const [formValues, setFormValues] = useState({
     username: "",
-    password: "",
+    website: "",
     fullName: "",
     email: "",
     address: {
@@ -196,8 +108,8 @@ function Register() {
           <input
             type="password"
             placeholder="Password..."
-            name="password"
-            value={formValues.password}
+            name="website"
+            value={formValues.website}
             onChange={handleInputChange}
           />
           <button type="button" onClick={validateStartInfo}>
