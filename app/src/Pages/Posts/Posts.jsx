@@ -1,8 +1,8 @@
-import { useEffect, useState, useEffectEvent } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
-import { handleServerRequest } from "../utils";
+import { handleServerRequest } from "../../utils";
 // import Post from "./posts/Post";
-import "../App.css";
+import "./Posts.css";
 
 function Posts() {
   const [currentUser, setCurrentUser] = useOutletContext();
@@ -20,7 +20,7 @@ function Posts() {
       } else {
         const data = await response;
         setPosts(data);
-        console.log(data);
+        // console.log(data);
       }
     };
 
@@ -41,6 +41,7 @@ function Posts() {
   function handlePostClick(postId) {
     navigate(`${postId}`);
   }
+
   return (
     <div>
       <div id="posts-container">
