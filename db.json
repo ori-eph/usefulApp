@@ -139,7 +139,7 @@
       "userId": 1,
       "id": 6,
       "title": "qui ullam ratione quibusdam voluptatem quia omnis",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
@@ -151,7 +151,7 @@
       "userId": 2,
       "id": 24,
       "title": "adipisci non ad dicta qui amet quaerat doloribus ea",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 2,
@@ -163,7 +163,7 @@
       "userId": 2,
       "id": 26,
       "title": "aliquam aut quasi",
-      "completed": true
+      "completed": false
     },
     {
       "userId": 3,
@@ -242,6 +242,18 @@
       "id": 94,
       "title": "facilis modi saepe mollitia",
       "completed": false
+    },
+    {
+      "title": "bear",
+      "userId": 1,
+      "completed": false,
+      "id": 95
+    },
+    {
+      "title": "dadsa",
+      "userId": 1,
+      "completed": false,
+      "id": 96
     }
   ],
   "albums": [

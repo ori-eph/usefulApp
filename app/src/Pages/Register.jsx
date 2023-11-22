@@ -1,26 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [formStatus, setFormStatus] = useState("typing");
   const [err, setErr] = useState(null);
   const [formValues, setFormValues] = useState({
     username: "",
     website: "",
-    fullName: "",
+    verifyWeb: "",
+    name: "",
     email: "",
     address: {
       city: "",
     },
   });
-
-  // Helper function to update form values
-  const updateFormValues = (name, value) => {
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      [name]: value,
-    }));
-  };
 
   // Helper function to validate form fields
   const validateFields = (fields) => {
@@ -46,7 +41,12 @@ function Register() {
     setErr(null);
     setFormStatus("loading");
     try {
-      validateFields(["username", "password"]);
+      validateFields(["username", "website", "verifyWeb"]);
+
+      if (formValues.website !== formValues.verifyWeb) {
+        throw Error("the passwords don`t match.");
+      }
+
       const foundUsers = await handleServerRequest(
         `http://localhost:3000/users/?username=${formValues.username}`
       );
@@ -68,20 +68,19 @@ function Register() {
     setErr(null);
     try {
       validateFields(Object.keys(formValues));
-      const foundUsers = await handleServerRequest(
-        `http://localhost:3000/users`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formValues),
-        }
-      );
-      if (foundUsers.length) {
-        throw Error("username taken.");
-      }
+      const newUser = formValues;
+      delete newUser.verifyWeb;
+
+      const addUser = await handleServerRequest(`http://localhost:3000/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
       setFormStatus("sent");
+      localStorage.setItem("currentUser", JSON.stringify(addUser));
+      navigate("/home");
     } catch (err) {
       setFormStatus("error");
       setErr(err);
@@ -91,13 +90,17 @@ function Register() {
   // Function to handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    updateFormValues(name, value);
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      [name]: value,
+    }));
   };
 
   return (
     <form>
       {page === 1 && (
         <>
+          <label htmlFor="username">username:</label>
           <input
             type="text"
             placeholder="Username..."
@@ -105,11 +108,19 @@ function Register() {
             value={formValues.username}
             onChange={handleInputChange}
           />
+          <label htmlFor="password">password:</label>
           <input
             type="password"
             placeholder="Password..."
             name="website"
             value={formValues.website}
+            onChange={handleInputChange}
+          />
+          <input
+            type="password"
+            placeholder="verify Password..."
+            name="verifyWeb"
+            value={formValues.verifyWeb}
             onChange={handleInputChange}
           />
           <button type="button" onClick={validateStartInfo}>
@@ -119,13 +130,15 @@ function Register() {
       )}
       {page === 2 && (
         <>
+          <label htmlFor="name">full name:</label>
           <input
             type="text"
             placeholder="Ex: donald duck..."
-            name="fullName"
-            value={formValues.fullName}
+            name="name"
+            value={formValues.name}
             onChange={handleInputChange}
           />
+          <label htmlFor="email">email:</label>
           <input
             type="email"
             placeholder="Email..."
@@ -133,6 +146,7 @@ function Register() {
             value={formValues.email}
             onChange={handleInputChange}
           />
+          <label htmlFor="city">city</label>
           <input
             type="text"
             placeholder="City..."
@@ -168,7 +182,11 @@ function Register() {
         </>
       )}
       {formStatus !== "typing" && (
-        <p>{formStatus === "sent" ? "sent" : err?.message || "loading..."}</p>
+        <p>
+          {formStatus === "sent"
+            ? "login you in..."
+            : err?.message || "loading..."}
+        </p>
       )}
     </form>
   );
