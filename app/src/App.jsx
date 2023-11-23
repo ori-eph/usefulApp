@@ -10,6 +10,8 @@ import SinglePost from "./Pages/Posts/SinglePost";
 import Register from "./Pages/Register";
 import ToDoList from "./Pages/Todo/ToDoList";
 import NotFound from "./components/NotFound";
+import Albums from "./Pages/Albums/Albums";
+import SingleAlbum from "./Pages/Albums/SingleAlbum";
 
 function App() {
   return (
@@ -25,9 +27,10 @@ function App() {
             <Route index element={<Posts />} />
             <Route path=":postId" element={<SinglePost />} />
           </Route>
-          {/* <Route path="albums" element={<Albums />}>
-            <Route path=":id" element={<singleAlbum />} />
-          </Route> */}
+          <Route path="albums">
+            <Route index element={<Albums />} />
+            <Route path=":albumId" element={<SingleAlbum />} />
+          </Route>
           <Route path="info" element={<Info />} />
           <Route path="*" element={<NotFound />} />
         </Route>

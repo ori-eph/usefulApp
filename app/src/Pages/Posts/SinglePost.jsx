@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams, Link } from "react-router-dom";
 import { handleServerRequest } from "../../utils";
 import Comments from "./Comments";
 
 function SinglePost() {
-  const [currentUser, setCurrentUser] = useOutletContext();
+  const [currentUser] = useOutletContext();
   const [comments, setComments] = useState([]);
   const [toggleComments, setToggleComments] = useState(false);
   const [post, setPost] = useState({});
@@ -104,59 +104,68 @@ function SinglePost() {
   }
 
   return (
-    <div id="single-post-page-container">
-      <div id="post-container">
-        <div id="post-header">
-          <img
-            className="profile-picture"
-            src="../../../public/profile.jpg"
-            alt="profile picture"
-          />
-          {/* <div>id: {post?.id}</div> */}
-          <div className="poster-info">
-            <div>{currentUser.username}</div>
-            <div>{currentUser.name}</div>
+    <>
+      <Link className="back-button" to="/home/posts">
+        <img
+          src="../../../public/back-icon.png"
+          alt="back button"
+          id="back-icon"
+        />
+      </Link>
+      <div id="single-post-page-container">
+        <div className="single-post-container">
+          <div className="post-header">
+            <img
+              className="profile-picture"
+              src="../../../public/profile.jpg"
+              alt="profile picture"
+            />
+            {/* <div>id: {post?.id}</div> */}
+            <div className="poster-info">
+              <div>{currentUser.username}</div>
+              <div>{currentUser.name}</div>
+            </div>
+          </div>
+          <div className="single-post-content">
+            <div className="post-title"> {post?.title} </div>
+            <div id="post-body"> {post?.body} </div>
+          </div>
+          <div id="buttons-container">
+            <button
+              id="comment-button"
+              onClick={() => setToggleComments((prev) => !prev)}
+            >
+              <img
+                id="comment-pic"
+                src="../../../public/comment-icon.png"
+                alt="comment icon"
+              />
+            </button>
+            <button
+              id="addComment"
+              onClick={() => {
+                setToggleNewCommentForm((prev) => !prev);
+              }}
+            >
+              <img
+                id="plus-icon"
+                src="../../../public/plus-icon.png"
+                alt="plus icon"
+              />
+            </button>
           </div>
         </div>
-        <div id="post-content">
-          <div id="post-title"> {post?.title} </div>
-          <div id="post-body"> {post?.body} </div>
-        </div>
-        <div id="buttons-container">
-          <button
-            id="comment-button"
-            onClick={() => setToggleComments((prev) => !prev)}
-          >
-            <img
-              id="comment-pic"
-              src="../../../public/comment-icon.png"
-              alt="comment icon"
-            />
-          </button>
-          <button
-            id="addComment"
-            onClick={() => {
-              setToggleNewCommentForm((prev) => !prev);
-            }}
-          >
-            <img
-              id="plus-icon"
-              src="../../../public/plus-icon.png"
-              alt="plus icon"
-            />
-          </button>
-        </div>
-      </div>
-      {enterCommentDetails()}
+        {enterCommentDetails()}
 
-      {toggleComments && (
-        <Comments
-          id="comments-container"
-          comments={comments}
-          setComments={setComments}
-        />
-      )}
-    </div>
+        {toggleComments && (
+          <Comments
+            id="comments-container"
+            comments={comments}
+            setComments={setComments}
+          />
+        )}
+      </div>
+    </>
   );
 }
 
