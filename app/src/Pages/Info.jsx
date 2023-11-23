@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import "../css/Info.css";
 
 function Info() {
-  const [currentUser, setCurrentUser] = useOutletContext();
+  const [currentUser] = useOutletContext();
 
   const renderUserDetail = (user) => {
     return (

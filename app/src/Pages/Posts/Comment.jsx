@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -82,7 +81,7 @@ function Comment(props) {
             className="trash-icon"
           />
         </button>
-        {comment.email === currentUser.email && ( //change this to === when taking into account that other users can see other usere's posts
+        {comment.email === currentUser.email && (
           <button
             className="edit-button"
             onClick={() => setToggleEditMode(true)}

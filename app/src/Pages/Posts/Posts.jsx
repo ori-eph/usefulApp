@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import { handleServerRequest } from "../../utils";
-// import Post from "./posts/Post";
 import "../../css/Posts.css";
 import SearchBar from "../../components/SearchBar";
 

@@ -14,8 +14,6 @@ function ToDoList() {
   const [currentUser] = useOutletContext();
 
   useEffect(() => {
-    // const user = JSON.parse(localStorage.getItem("currentUser"));
-
     async function getUserList() {
       return await handleServerRequest(
         `http://localhost:3000/users/${currentUser.id}/todos`

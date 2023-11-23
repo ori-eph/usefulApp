@@ -1,7 +1,7 @@
-import React, { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { handleServerRequest } from "../../utils";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 
 function Comments({ comments, setComments }) {
@@ -15,9 +15,6 @@ function Comments({ comments, setComments }) {
       const response = await handleServerRequest(
         `http://localhost:3000/posts/${postId}/comments`
       );
-      //   console.log(
-      //     `response: ${JSON.stringify(response)}, length: ${response.length} `
-      //   );
       if (!response.length) {
         throw new Error("the post was not found");
       } else {
@@ -32,8 +29,6 @@ function Comments({ comments, setComments }) {
         getComments();
       } catch (err) {
         setErr(err);
-      } finally {
-        // console.log(post);
       }
     }
 
