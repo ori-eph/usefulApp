@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { handleServerRequest } from "../utils";
 import "../css/signInSignUp.css";
@@ -11,6 +11,10 @@ function Login() {
     password: "",
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.removeItem("currentUser");
+  }, []);
 
   // Function to validate start info
   async function handleLogin(e) {

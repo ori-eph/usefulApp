@@ -1,4 +1,5 @@
 import { handleServerRequest } from "../../utils";
+import "../../css/ToDo.css";
 
 function TodoItem({ item, removeItem, checkItem, setErr }) {
   async function handleCheck() {
@@ -15,15 +16,15 @@ function TodoItem({ item, removeItem, checkItem, setErr }) {
   }
   return (
     <>
-      <div>
-        <h2>{item.title}</h2>
+      <div id="toDoItem">
         <h4>{item.id}</h4>
+        <h2 className={item.completed ? "completedItem" : ""}>{item.title}</h2>
+        <button onClick={removeItem}>remove</button>
         <input
           type="checkbox"
           checked={item.completed}
           onChange={handleCheck}
         />
-        <button onClick={removeItem}>trash</button>
       </div>
     </>
   );

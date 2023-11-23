@@ -1,7 +1,6 @@
-import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
+import { Outlet, Link, useNavigate, NavLink, Navigate } from "react-router-dom";
 import { useState } from "react";
 import "../css/HomeLayout.css";
-// import { LayoutProvider } from "../context/LayoutProvider";
 
 export default function HomeLayout() {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ export default function HomeLayout() {
   function handleLogout() {
     setCurrentUser("");
     localStorage.removeItem("currentUser");
-    navigate("/login");
+    navigate("/login", { replace: true });
   }
 
   return (
@@ -28,7 +27,6 @@ export default function HomeLayout() {
           logout
         </button>
       </header>
-      {/* <div id="container"> */}
       <nav>
         <NavLink
           end
@@ -56,14 +54,13 @@ export default function HomeLayout() {
           Albums
         </NavLink>
       </nav>
-      {/* <LayoutProvider> */}
       <div id="homeBody">
-        {/* <div id="contentContainer"> */}
-        <Outlet context={[currentUser, setCurrentUser]} />
-        {/* </div> */}
+        {currentUser ? (
+          <Outlet context={[currentUser, setCurrentUser]} />
+        ) : (
+          <Navigate to="/login" />
+        )}
       </div>
-      {/* </LayoutProvider> */}
-      {/* </div> */}
     </>
   );
 }

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
 import SearchBar from "../../components/SearchBar";
 import { handleServerRequest } from "../../utils";
+import "../../css/ToDo.css";
+import { useOutletContext } from "react-router-dom";
 
 function ToDoList() {
   const [list, setList] = useState([]);
@@ -9,14 +11,14 @@ function ToDoList() {
   const [searchRes, setSearchRes] = useState(null);
   const [newItem, setNewItem] = useState("");
   const sortOrderRef = useRef("date");
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const [currentUser] = useOutletContext();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
+    // const user = JSON.parse(localStorage.getItem("currentUser"));
 
     async function getUserList() {
       return await handleServerRequest(
-        `http://localhost:3000/users/${user.id}/todos`
+        `http://localhost:3000/users/${currentUser.id}/todos`
       );
     }
 
@@ -31,7 +33,7 @@ function ToDoList() {
     }
 
     makeList();
-  }, []);
+  }, [currentUser.id]);
 
   async function handleRemoveItem(index, id) {
     setList((prev) => {
@@ -79,9 +81,12 @@ function ToDoList() {
 
   async function addItem(e) {
     e.preventDefault();
+    if (!newItem) {
+      return;
+    }
     const newItemObj = {
       title: newItem,
-      userId: user.id,
+      userId: currentUser.id,
       completed: false,
     };
     setNewItem("");
@@ -129,36 +134,42 @@ function ToDoList() {
 
   return (
     <>
-      <h1>Your to do list:</h1>
-      <form onSubmit={addItem}>
-        <label htmlFor="item">add an item:</label>
-        <input
-          name="item"
-          type="text"
-          placeholder="item..."
-          value={newItem}
-          onChange={(e) => {
-            setNewItem(e.target.value);
-          }}
+      <h1>Your to do list</h1>
+      <div id="list-functions-container">
+        <form id="addItemForm" onSubmit={addItem}>
+          <label htmlFor="item">add an item:</label>
+          <input
+            name="item"
+            type="text"
+            placeholder="item..."
+            value={newItem}
+            onChange={(e) => {
+              setNewItem(e.target.value);
+            }}
+          />
+          <button id="addItemBtn">+</button>
+        </form>
+        <SearchBar
+          searchBy={["title", "id"]}
+          category={"todos"}
+          setErr={setErr}
+          setResList={setSearchRes}
+          list={list}
         />
-        <button>+</button>
-      </form>
-      <label htmlFor="sortOrder">Sort by: </label>
-      <select ref={sortOrderRef} id="sortOrder" onChange={handleSortChange}>
-        <option value="date">Date</option>
-        <option value="A-Z">A-Z</option>
-        <option value="Z-A">Z-A</option>
-        <option value="importance">importance</option>
-      </select>
-      <SearchBar
-        searchBy={["title", "id"]}
-        category={"todos"}
-        setErr={setErr}
-        setResList={setSearchRes}
-        list={list}
-      />
+        <label htmlFor="sortOrder">Sort by: </label>
+        <select ref={sortOrderRef} id="sortOrder" onChange={handleSortChange}>
+          <option value="date">Date</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+          <option value="importance">importance</option>
+        </select>
+      </div>
       {err && <p>{err.message}</p>}
-      {list.length && <ul>{presentedList}</ul>}
+      {list.length > 0 ? (
+        <ol id="toDoList">{presentedList}</ol>
+      ) : (
+        <p id="emptyToDo">your list is empty.</p>
+      )}
     </>
   );
 }
