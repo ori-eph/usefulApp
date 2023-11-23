@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import "../css/SearchBar.css";
 
 function SearchBar(props) {
   const [search, setSearch] = useState("");
@@ -42,10 +43,10 @@ function SearchBar(props) {
   }
 
   return (
-    <div>
+    <div id="searchBar">
       <input
         type="search"
-        placeholder="search..."
+        placeholder={`search by...(select search param in box)`}
         name="search"
         id="search"
         value={search}
@@ -63,7 +64,7 @@ function SearchBar(props) {
           );
         })}
       </select>
-      <button onClick={getSearchResults}>search</button>
+      <button onClick={getSearchResults}>🔍</button>
     </div>
   );
 }

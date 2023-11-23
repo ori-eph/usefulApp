@@ -64,6 +64,7 @@ function Posts() {
 
   return (
     <div>
+      <h1 id="postsTitle">Your posts</h1>
       <SearchBar
         searchBy={["title", "id"]}
         category={"posts"}
