@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 
 function Comment(props) {
-  const [currentUser, setCurrentUser] = useOutletContext();
+  const [currentUser] = useOutletContext();
   const [toggleEditMode, setToggleEditMode] = useState(false);
   const [comment, setComment] = useState({
     postId: props.postId,
@@ -82,7 +82,7 @@ function Comment(props) {
             className="trash-icon"
           />
         </button>
-        {comment.email !== currentUser.email && ( //change this to === when taking into account that other users can see other usere's posts
+        {comment.email === currentUser.email && ( //change this to === when taking into account that other users can see other usere's posts
           <button
             className="edit-button"
             onClick={() => setToggleEditMode(true)}

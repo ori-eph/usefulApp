@@ -31,7 +31,6 @@
   padding-top: 3%;
 }
 
-#post-header,
 .commenter-info,
 .comment-header,
 .post-header {
@@ -70,10 +69,14 @@
   border: 1px solid grey;
 }
 
-#post-container {
+.single-post-container {
   margin: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-top: 6%;
+}
+
+#add-new-post {
+  width: 30%;
 }
 
 #post-body {
@@ -84,18 +87,18 @@
   padding: 2%;
 }
 
-#post-title {
+.post-title {
   text-align: center;
 }
 
-#post-container,
+.single-post-container,
 #new-comment-container {
   width: 95%;
   height: 50%;
   border: 1px solid rgba(128, 128, 128, 0.734);
 }
 
-#post-content,
+.single-post-content,
 .comment-container {
   border: 1px solid rgba(128, 128, 128, 0.734);
   margin: 3%;
@@ -110,11 +113,6 @@
   margin: 0;
   margin-left: 5%;
   padding: 0;
-}
-
-.check-button,
-.x-button {
-  margin-bottom: 0%;
 }
 
 #comment-button:hover,
@@ -152,4 +150,29 @@
 
 .poster-info {
   margin-top: 4%;
+}
+
+#back-icon {
+  width: 7%;
+}
+
+#post-button {
+  margin-left: 40%;
+}
+
+input.post-title {
+  margin-left: 23%;
+}
+
+input.post-body {
+  width: 90%;
+  margin-left: 4%;
+}
+
+#single-post-content input {
+  border: none;
+}
+
+.back-button{
+  position: fixed;
 }

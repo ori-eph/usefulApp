@@ -62,8 +62,12 @@ function Comments({ comments, setComments }) {
             />
           );
         })
+      ) : comments.length === 0 ? (
+        <p style={{ textAlign: "center", marginTop: "3%" }}>
+          You have no comments
+        </p>
       ) : (
-        <span>Loading...</span>
+        <p style={{ textAlign: "center", marginTop: "3%" }}>Loading...</p>
       )}
     </div>
   );
