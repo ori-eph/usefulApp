@@ -8,8 +8,8 @@
   right: 50%;
 }
 
-#login > *,
-#register > * {
+#login > form > *,
+#register > form > * {
   display: block;
   margin: 3% auto;
 }

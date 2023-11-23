@@ -1,19 +1,15 @@
+import { handleServerRequest } from "../../utils";
+
 function TodoItem({ item, removeItem, checkItem, setErr }) {
   async function handleCheck() {
     checkItem();
     try {
-      const updateItem = await fetch(`http://localhost:3000/todos/${item.id}`, {
+      await handleServerRequest(`http://localhost:3000/todos/${item.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ completed: !item.completed }),
       });
-      if (!updateItem.ok) {
-        throw Error(
-          "an error has accrued, please reload the page and try agin."
-        );
-      }
     } catch (err) {
-      console.log("err!");
       setErr(err);
     }
   }

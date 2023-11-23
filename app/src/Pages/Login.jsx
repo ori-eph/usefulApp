@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleServerRequest } from "../utils";
-import "./signInSignUp.css";
+import "../css/signInSignUp.css";
 
 function Login() {
   const [err, setErr] = useState(null);
@@ -44,8 +44,9 @@ function Login() {
   };
 
   return (
-    <main>
-      <form id="login">
+    <main id="login">
+      <h2>Login</h2>
+      <form>
         <label htmlFor="username">username</label>
         <input
           id="username"
@@ -71,6 +72,9 @@ function Login() {
       {formStatus !== "typing" && (
         <p>{formStatus === "sent" ? "sent" : err?.message || "loading..."}</p>
       )}
+      <hr />
+      <p>or</p>
+      <Link to="/register">Sign up</Link>
     </main>
   );
 }

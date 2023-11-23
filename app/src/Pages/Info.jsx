@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import "./Info.css";
+import "../css/Info.css";
 
 function Info() {
   const [currentUser, setCurrentUser] = useOutletContext();

@@ -114,6 +114,16 @@
         "catchPhrase": "User-centric fault-tolerant solution",
         "bs": "revolutionize end-to-end systems"
       }
+    },
+    {
+      "username": "ori",
+      "website": "1234",
+      "name": "ori eph",
+      "email": "cat@mail.com",
+      "address": {
+        "city": "london"
+      },
+      "id": 6
     }
   ],
   "todos": [
@@ -230,6 +240,12 @@
       "id": 94,
       "title": "facilis modi saepe mollitia",
       "completed": false
+    },
+    {
+      "title": "bear",
+      "userId": 6,
+      "completed": false,
+      "id": 95
     }
   ],
   "albums": [

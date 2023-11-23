@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
 import SearchBar from "../../components/SearchBar";
+import { handleServerRequest } from "../../utils";
 
 function ToDoList() {
   const [list, setList] = useState([]);
@@ -12,15 +13,11 @@ function ToDoList() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
+
     async function getUserList() {
-      const response = await fetch(
+      return await handleServerRequest(
         `http://localhost:3000/users/${user.id}/todos`
       );
-      if (!response.ok) {
-        throw Error("A loading error has accrued, please try again later.");
-      }
-      const data = await response.json();
-      return data;
     }
 
     async function makeList() {
@@ -41,14 +38,9 @@ function ToDoList() {
       return prev.filter((item, i) => i !== index);
     });
     try {
-      const deleteItem = await fetch(`http://localhost:3000/todos/${id}`, {
+      await handleServerRequest(`http://localhost:3000/todos/${id}`, {
         method: "DELETE",
       });
-      if (!deleteItem.ok) {
-        throw Error(
-          "an error has accrued, please reload the page and try agin."
-        );
-      }
     } catch (err) {
       setErr(err);
     }
@@ -94,14 +86,16 @@ function ToDoList() {
     };
     setNewItem("");
     try {
-      const result = await fetch("http://localhost:3000/todos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newItemObj),
-      });
-      const savedItem = await result.json();
+      const savedItem = await handleServerRequest(
+        "http://localhost:3000/todos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newItemObj),
+        }
+      );
       setList((prev) => [...prev, savedItem]);
     } catch (err) {
       setErr(err);
@@ -135,6 +129,7 @@ function ToDoList() {
 
   return (
     <>
+      <h1>Your to do list:</h1>
       <form onSubmit={addItem}>
         <label htmlFor="item">add an item:</label>
         <input
@@ -148,7 +143,6 @@ function ToDoList() {
         />
         <button>+</button>
       </form>
-      <h1>Your to do list:</h1>
       <label htmlFor="sortOrder">Sort by: </label>
       <select ref={sortOrderRef} id="sortOrder" onChange={handleSortChange}>
         <option value="date">Date</option>
