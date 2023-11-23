@@ -1,4 +1,4 @@
-import { useOutletContext, useParams } from "react-router-dom";
+import { Link, useOutletContext, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { handleServerRequest } from "../../utils";
 
@@ -45,7 +45,14 @@ function SingleAlbum() {
 
   return (
     <>
-      <h1>album id: {albumId}</h1>
+      <Link to="/home/albums">
+        <img
+          src="../../../public/back-icon.png"
+          alt="back button"
+          id="back-icon"
+        />
+      </Link>
+      <h1 style={{ textAlign: "center" }}>album id: {albumId}</h1>
       <div id="photos-container">
         <button
           disabled={pageNumber === 1}
