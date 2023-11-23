@@ -253,12 +253,6 @@
     },
     {
       "title": "bear",
-      "userId": 1,
-      "completed": false,
-      "id": 96
-    },
-    {
-      "title": "bear",
       "userId": 7,
       "completed": false,
       "id": 97
@@ -1065,6 +1059,18 @@
       "title": "tuesday",
       "body": "it is 11:02 right now",
       "id": 51
+    },
+    {
+      "userId": "1",
+      "title": "post",
+      "body": "bla ble",
+      "id": 52
+    },
+    {
+      "userId": "7",
+      "title": "g",
+      "body": "gg",
+      "id": 53
     }
   ],
   "comments": [
@@ -2285,6 +2291,13 @@
       "email": "Sincere@april.biz",
       "body": "",
       "id": 252
+    },
+    {
+      "postId": "52",
+      "name": "Leanne Graham",
+      "email": "Sincere@april.biz",
+      "body": "bla",
+      "id": 253
     }
   ]
 }

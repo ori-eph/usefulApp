@@ -74,7 +74,7 @@ function Comment(props) {
       <div className="commentButtons">
         <button
           className="trash-button"
-          onClick={() => props.handleRemoveComment(comment.index, comment.id)}
+          onClick={() => props.handleRemoveComment(comment.id)}
         >
           <img
             src="../../../public/trash-icon.png"
