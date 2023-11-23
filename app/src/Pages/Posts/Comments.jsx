@@ -5,7 +5,6 @@ import { useOutletContext } from "react-router-dom";
 import Comment from "./Comment";
 
 function Comments(props) {
-  const [comments, setComments] = useState([]);
   const [err, setErr] = useState(null);
 
   useEffect(() => {
@@ -20,7 +19,7 @@ function Comments(props) {
         throw new Error("the post was not found");
       } else {
         const data = await response;
-        setComments(data);
+        props.setComments(data);
       }
     }
 
@@ -40,15 +39,15 @@ function Comments(props) {
 
   function handleRemoveComment(commentIndex, commentId) {
     fetch(`http://localhost:3000/comments/${commentId}`, { method: "DELETE" });
-    setComments((prev) =>
+    props.setComments((prev) =>
       [...prev].filter((item, index) => index !== commentIndex)
     );
   }
 
   return (
     <div>
-      {comments.length ? (
-        comments.map((comment, index) => {
+      {props.comments.length ? (
+        props.comments.map((comment, index) => {
           return (
             <Comment
               key={index}
