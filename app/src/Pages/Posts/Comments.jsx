@@ -1,17 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useEffect } from "react";
 import { handleServerRequest } from "../../utils";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import Comment from "./Comment";
 
-function Comments(props) {
-  const [comments, setComments] = useState([]);
+function Comments({ comments, setComments }) {
   const [err, setErr] = useState(null);
+  const { postId } = useParams();
+  const setCommentsRef = useRef(setComments);
+  setCommentsRef.current = setComments;
 
   useEffect(() => {
     async function getComments() {
       const response = await handleServerRequest(
-        `http://localhost:3000/posts/${props.postId}/comments`
+        `http://localhost:3000/posts/${postId}/comments`
       );
       //   console.log(
       //     `response: ${JSON.stringify(response)}, length: ${response.length} `
@@ -20,7 +22,7 @@ function Comments(props) {
         throw new Error("the post was not found");
       } else {
         const data = await response;
-        setComments(data);
+        setCommentsRef.current(data);
       }
     }
 
@@ -36,13 +38,11 @@ function Comments(props) {
     }
 
     handleComment();
-  }, [props.postId]);
+  }, [postId]);
 
-  function handleRemoveComment(commentIndex, commentId) {
+  function handleRemoveComment(commentId) {
     fetch(`http://localhost:3000/comments/${commentId}`, { method: "DELETE" });
-    setComments((prev) =>
-      [...prev].filter((item, index) => index !== commentIndex)
-    );
+    setComments((prev) => [...prev].filter((item) => item.id != commentId));
   }
 
   return (
@@ -57,7 +57,7 @@ function Comments(props) {
               email={comment.email}
               body={comment.body}
               handleRemoveComment={handleRemoveComment}
-              postId={props.postId}
+              postId={postId}
               id={comment.id}
             />
           );

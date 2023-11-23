@@ -28,42 +28,42 @@ export default function HomeLayout() {
           logout
         </button>
       </header>
-      <div id="container">
-        <nav>
-          <NavLink
-            end
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
-            to="/home"
-          >
-            Home
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
-            to="posts"
-          >
-            Posts
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
-            to="todos"
-          >
-            Todos
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? "active" : "inactive")}
-            to="albums"
-          >
-            Albums
-          </NavLink>
-        </nav>
-        {/* <LayoutProvider> */}
-        <div id="homeBody">
-          {/* <div id="contentContainer"> */}
-          <Outlet context={[currentUser, setCurrentUser]} />
-          {/* </div> */}
-        </div>
-        {/* </LayoutProvider> */}
+      {/* <div id="container"> */}
+      <nav>
+        <NavLink
+          end
+          className={({ isActive }) => (isActive ? "active" : "inactive")}
+          to="/home"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "active" : "inactive")}
+          to="posts"
+        >
+          Posts
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "active" : "inactive")}
+          to="todos"
+        >
+          Todos
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "active" : "inactive")}
+          to="albums"
+        >
+          Albums
+        </NavLink>
+      </nav>
+      {/* <LayoutProvider> */}
+      <div id="homeBody">
+        {/* <div id="contentContainer"> */}
+        <Outlet context={[currentUser, setCurrentUser]} />
+        {/* </div> */}
       </div>
+      {/* </LayoutProvider> */}
+      {/* </div> */}
     </>
   );
 }

@@ -29,31 +29,73 @@ function Comment(props) {
   return (
     <div className="comment-container" key={comment.index}>
       <div>
-        <div className="commentId">{comment.id}</div>
-        <div className="commentName"> name: {comment.name} </div>
-        <div className="commentEmail"> email: {comment.email} </div>
+        <div className="comment-header">
+          <img
+            src="../../../public/profile.jpg"
+            alt="profile picture"
+            className="profile-picture"
+          />
+          <div className="poster-info">
+            <div className="commentName"> {comment.name} </div>
+            <div className="commentEmail"> {comment.email} </div>
+          </div>
+        </div>
         {!toggleEditMode ? (
-          <div className="commentBody"> body: {comment.body} </div>
+          <div className="commentBody"> {comment.body} </div>
         ) : (
           <form>
             <label htmlFor="body">body</label>
             <input type="text" name="commentBody" id="body" ref={bodyInput} />
-            <button type="button" onClick={handleEditComment}>
-              submit
+            <button
+              type="button"
+              className="check-button"
+              onClick={handleEditComment}
+            >
+              <img
+                src="../../../public/check-icon.png"
+                alt="check icon"
+                className="check-icon"
+              />
+            </button>
+            <button
+              type="button"
+              className="x-button"
+              onClick={() => setToggleEditMode(false)}
+            >
+              <img
+                src="../../../public/x-icon.png"
+                alt="x icon"
+                className="x-icon"
+              />
             </button>
           </form>
         )}
       </div>
       <div className="commentButtons">
         <button
-          onClick={() => props.handleRemoveComment(comment.index, comment.id)}
+          className="trash-button"
+          onClick={() => props.handleRemoveComment(comment.id)}
         >
-          d
+          <img
+            src="../../../public/trash-icon.png"
+            alt="trash icon"
+            className="trash-icon"
+          />
         </button>
         {comment.email !== currentUser.email && ( //change this to === when taking into account that other users can see other usere's posts
-          <button onClick={() => setToggleEditMode(true)}>e</button>
+          <button
+            className="edit-button"
+            onClick={() => setToggleEditMode(true)}
+          >
+            <img
+              src="../../../public/edit-icon.png"
+              alt="edit icon"
+              className="edit-icon"
+            />
+          </button>
         )}
       </div>
+      <span className="commentId">{comment.id}</span>
     </div>
   );
 }

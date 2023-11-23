@@ -63,8 +63,21 @@ function Posts() {
                 key={index}
                 onClick={() => handlePostClick(post.id)}
               >
-                <div className="postId">{post.id}</div>
-                <div className="postTitle">{post.title}</div>
+                <div className="post-header">
+                  <img
+                    className="profile-picture"
+                    src="../../../public/profile.jpg"
+                    alt="profile picture"
+                  />
+                  <div className="poster-info">
+                    <div>{currentUser.username} </div>
+                    <div>{currentUser.name} </div>
+                  </div>
+                </div>
+                <div className="post-content">
+                  <div className="postTitle">{post.title}</div>
+                  <div className="postId">{post.id}</div>
+                </div>
               </div>
             );
           })
